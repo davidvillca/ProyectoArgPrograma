@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto final</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="/assets/images/logo.ico" type="assets/logo.ico">
+    <link rel="shortcut icon" href="/assets/logo.ico" type="assets/logo.ico">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ 
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-dark bg-opacity-75">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="../index.html">
+                <img src="../assets/images/itravel-2.png"  alt="logo itravel" class="itravel-logo">
+              </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="boton-hamburguesa">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              
+              <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                <ul class="navbar-nav container-lg nav-list me-auto mb-2 mb-lg-0 d-lg-none ">
+                  <li class="nav-item  mx-lg-4 ">
+                    <a class="nav-link active text-white text-center" aria-current="page" href="../index.html">Inicio</a>
+                  </li>
+                  <li class="nav-item mx-lg-4">
+                    <a class="nav-link text-white text-center" href="about-us.html">Sobre Nosotros</a>
+                  </li>
+                  <li class="nav-item mx-lg-4">
+                    <a class="nav-link text-white text-center" href=".contact.html">Contacto</a>
+                  </li>
+                  <li class="nav-item mx-lg-4">
+                    <a class="nav-link text-white text-center" href="#">Pasajes</a>
+                  </li>
+                  </ul>
+        
+                  <ul class="navbar-nav container-lg nav-list me-auto mb-2 mb-lg-0 nav-lg">
+                    <li class="nav-item  mx-lg-4 header-item">
+                      <a class="nav-link text-dark text-center btn btn-light " aria-current="page" href="../index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item mx-lg-4 header-item">
+                      <a class="nav-link text-dark text-center btn btn-light" href="about-us.html">Sobre Nosotros</a>
+                    </li>
+                    <li class="nav-item mx-lg-4 header-item">
+                      <a class="nav-link text-dark text-center btn btn-light" href="contact.html">Contacto</a>
+                    </li>
+                    <li class="nav-item mx-lg-4 header-item">
+                      <a class="nav-link text-dark text-center btn btn-light" href="#">Pasajes</a>
+                    </li>
+                    </ul>
+               
+              </div>
+            </div>
+          </nav>
+    </header>
+
+    <h1>Pasajes</h1>
+          <p>Al enviarnos sus datos nos pondremos en contacto para dar asesoria sobreel destino seleccionado</p>
+                    <form id="myForm">
+                        <label for="name">Nombre:</label>
+                        <input type="text" id="name" name="name" required><br>
+                        <label for="surname">Apellido:</label>
+                        <input type="text" id="surname" name="surname" required><br>
+                        <label for="phone">Teléfono:</label>
+                        <input type="tel" id="phone" name="phone" required><br>
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required><br>
+                        <label for="destination">Destino:</label>
+                        <select id="destination" name="destination" required>
+                          <option value="Mar Del Plata">Mar Del Plata</option>
+                          <option value="Mendoza">Mendoza</option>
+                          <option value="Córdoba">Córdoba</option>
+                          <option value="Tierra Del Fuego">Tierra Del Fuego</option>
+                        </select><br>
+                  <button type="submit">Enviar</button>
+                  <button type="button" onclick="generarPDF()">Generar PDF</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <p id="mensaje"></p>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+          <script>
+
+            
+            var formulario = $("#formulario");
+        
+           
+            formulario.submit(function(event) {
+
+              event.preventDefault();
+        
+
+              var datos = formulario.serialize();
+        
+       
+              $.ajax({
+                url: "/api/users?page=2",
+                type: "POST",
+                data: datos,
+                success: function(response) { 
+                console.log(response);
+                $("#result").html("Datos enviados correctamente. ID: " + response.id);
+                alert("Datos enviados correctamente. ID: " + response.id);
+                },
+              });
+           
+           
+            });
+            
+
+          </script>
+          <script>
+          function generarPDF() {
+            
+              var nombre = document.getElementById('name').value;
+              var apellido = document.getElementById('surname').value;
+              var email = document.getElementById('email').value;
+              var destino = document.getElementById('destination').value;
+             
+              var doc = new jsPDF();
+  
+
+              doc.text(20, 20, 'Resumen de Pasajes');
+              doc.text(20, 30, 'Nombre: ' + nombre);
+              doc.text(20, 40, 'Apellido: ' + apellido);
+              doc.text(20, 50, 'Email: ' + email);
+              doc.text(20, 60, 'Destino Elegido: ' + destino);
+
+              doc.save('formulario.pdf');
+          }
+      </script>
+    
+      
+    <footer class=" bg-dark  ">
+      
+      <div class="container p-2 ">
+      
+        <div class="row">
+      
+          <div class="col-12 col-md-6 col-lg-4 text-white  sm-footer-contact">
+        <img src="../../assets/images/logo.ico" class="img -logo.ico img-fluid" width="60px" alt="">
+        <span class="footer-contact">Contacto</span>
+        <br>
+        <span class="footer-contact small">Tel: +5491178563412</span>
+        <br>
+        <span class="footer-contact small">Email: intiviajes_ar@gmail.com</span>
+        <br>
+        <span class="footer-contact small">Av de Mayo 754 - Capital Federal</span>
+      </div>
+      
+        <div class="col-12 col-md-6 col-lg-4">
+        <h5 class="text-center text-white d-lg-none">Síguenos en Nuestras Redes!</h5>
+        <div class="logo-footer ">
+          <img src="../../assets/images/logo.ico" class="img-logo.ico img-fluid mb-lg-2" width="60px" alt="">
+        </div>
+        <ul class="list-unstyled mx-lg-5">
+          <li class="text-center mb-2">
+            <a href="https://www.instagram.com/" target="_blank">  
+            <i class="fa-brands fa-instagram fs-5 text-white"></i>
+            </a>
+              <a href="https://www.instagram.com/" class="text-decoration-none text-white d-lg-none">Instagram</a>
+         </li>
+         <li class="text-center mb-2">
+          <a href="https://www.facebook.com/" target="_blank"> 
+          <i class="fa-brands fa-facebook-f fs-5 text-white" ></i>
+          </a>
+          <a href="https://www.facebook.com/" class="text-decoration-none text-white d-lg-none" >Facebook</a>
+         </li>
+         <li class="text-center mb-2">
+          <a  href="https://www.youtube.com/" target="_blank"> 
+          <i class="fa-brands fa-youtube fs-5 text-white"></i> 
+          </a>
+          <a href="https://www.youtube.com/"  class="text-decoration-none text-white d-lg-none">YouTube</a>
+         </li>
+        </ul>
+        </div>
+  
+        <div class="col-12 col-md-6 col-lg-4 footer-legal  ">
+          <a href="../../pages/not-found/not-found.html" class="text-decoration-none text-white small">Aviso Legal</a>
+          <br>
+          <a href="../../pages/not-found/not-found.html" class="text-decoration-none text-white small">Política de privacidad</a>
+          <br>
+          <a href="../../pages/not-found/not-found.html" class="text-decoration-none text-white small">Política de cookies</a>
+          <br>
+          <a href="" class="text-decoration-none text-white small">Copyright © IntiViajes</a>
+        </div>
+        </div>
+  
+      </div>
+  
+    </footer>
+    <script src="../../js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/script.js"></script>
+  </body>
+  </html>

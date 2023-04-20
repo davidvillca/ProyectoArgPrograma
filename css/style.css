@@ -1,0 +1,76 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+@import url('https://fonts.googleapis.com/css2?family=Netflix+Sans&display=swap');
+
+.carousel{
+    margin-top: none px;
+    position: relative;
+    left: 50%;
+    width: 100vw;
+    max-width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    transform: translateX(-50%)
+}
+
+
+.itravel-logo {
+    width: 130px;
+  }  
+
+  #boton-hamburguesa {
+    background-color: white;
+    border-color: white;
+  }
+  
+  #boton-hamburguesa .navbar-toggler-icon {
+    color: transparent;
+  }
+  
+  .list-unstyled {
+    list-style-type: none;
+  }
+  
+  
+  .text-about {
+    text-align: center;
+    margin-right: 20%;
+    margin-left: 20%;
+    color: black;
+  
+  }
+  
+  
+  .slide img {
+    height: 60vh;
+    object-fit: cover;
+  
+  }
+
+  body {
+    width: 100%;
+    height: 100%;
+  
+    background: #fff;
+    background: -webkit-linear-gradient(to right, #f6f7f7, #86A8E7, #7F7FD5);
+    background: linear-gradient(to left, #91EAE4, #86A8E7, #7F7FD5);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Netflix Sans', sans-serif;
+  
+  }
+
+  #Footer {
+    background: black;
+    height: 70px;
+    border-top: 2px solid rgba(0, 0, 0, 0.24);
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+  }
